@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingTextElement = document.querySelector('.typing-text span');
     let isTyping = false;
     let isErasing = false;
-
-    // Ensure the first slide has the 'first-slide' class
     if (slides.length > 0) {
         slides[0].classList.add('first-slide');
     }
@@ -44,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentCharIndex--;
             setTimeout(erase, erasingSpeed);
         } else {
-            // Transition to the next slide
             const currentSlide = slides[currentTextIndex];
             const nextIndex = (currentTextIndex + 1) % slides.length;
             const nextSlide = slides[nextIndex];
@@ -59,44 +56,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize first slide
     if (slides.length > 0) {
         slides[0].style.opacity = 1;
     }
 
-    // Start the typing effect
     isTyping = true;
     type();
 
-    // Sound On/Off Button Functionality
     const soundBtn = document.getElementById('sound-btn');
     const backgroundAudio = document.getElementById('background-audio');
     let isPlaying = false;
 
-    // Attempt to play audio on load
     function attemptPlayAudio() {
         backgroundAudio.play().then(() => {
             isPlaying = true;
-            soundBtn.innerHTML = '<span id="sound-icon">🔊</span>'; // Sound on icon
+            soundBtn.innerHTML = '<span id="sound-icon">🔊</span>'; 
         }).catch(error => {
-            // Autoplay might be blocked, user interaction might be required
             console.log('Audio play was blocked:', error);
             isPlaying = false;
-            soundBtn.innerHTML = '<span id="sound-icon">🔈</span>'; // Sound off icon
+            soundBtn.innerHTML = '<span id="sound-icon">🔈</span>'; 
         });
     }
-
-    // Start playing audio on page load
     attemptPlayAudio();
-
-    // Toggle Sound Button Event Listener
     soundBtn.addEventListener('click', () => {
         if (isPlaying) {
             backgroundAudio.pause();
-            soundBtn.innerHTML = '<span id="sound-icon">🔈</span>'; // Change icon to muted
+            soundBtn.innerHTML = '<span id="sound-icon">🔈</span>'; 
         } else {
             attemptPlayAudio();
         }
-        isPlaying = !isPlaying; // Toggle the state
+        isPlaying = !isPlaying; 
     });
 });
